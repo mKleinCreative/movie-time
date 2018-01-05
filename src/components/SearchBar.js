@@ -6,7 +6,7 @@ const SearchBar = props => (
       <label htmlFor="search">Search:</label>
       <input
         onChange={props.handleInputChange}
-        value={props.search}
+        value={props.searchLocation}
         name="search"
         type="text"
         className="form-control"
