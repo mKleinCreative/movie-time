@@ -1,31 +1,31 @@
 import React, { Component } from "react";
-import SearchBar from './SearchBar'
+import SearchBar from "./SearchBar";
 // import TheaterContainer from './TheaterContainer'
 // import VideoContainer from './VideoContainer'
-import MovieResultsList from './MovieResultsList'
+// import MovieResultsList from './MovieResultsList'
 
 class Container extends Component {
   state = {
-    searchLocation: '',
+    searchLocation: "",
     movieResults: [],
     theaterResults: [],
     currentMovie: {
-      title: '',
-      rating: '',
-      duration: '',
-      description: ''
+      title: "",
+      rating: "",
+      duration: "",
+      description: ""
     }
-  }
+  };
 
-  componentDidMount() {
-    // get geolocation library
+  // componentDidMount() {
+  //   // get geolocation library
 
-    // use that information to ping fandango api
+  //   // use that information to ping fandango api
 
-    // get theaters in current area
+  //   // get theaters in current area
 
-    // set current Movie to first movie result
-  }
+  //   // set current Movie to first movie result
+  // }
 
   handleInputChange = event => {
     const name = event.target.name;
@@ -36,26 +36,23 @@ class Container extends Component {
   };
 
   handleFormSubmit = event => {
+    // when we submit the form, we're going to submit it to google places API and do something about movies.
     event.preventDefault();
   };
 
-  // when we submit the form, we're going to submit it to google places API and do something about movies.
-
   render() {
-    return ( 
+    return (
       <div>
-        <SearchBar 
+        <SearchBar
           search={this.state.searchLocation}
           handleFormSubmit={this.handleFormSubmit}
           handleInputChange={this.handleInputChange}
-          />
-        <MovieResultsList 
-          results={this.state.movieResults}
-          />
-        
+        />
+       { /*
+        <MovieResultsList results={this.state.movieResults} /> */}
       </div>
     );
   }
 }
 
-export default Container
+export default Container;
