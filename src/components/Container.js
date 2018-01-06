@@ -19,39 +19,38 @@ class Container extends Component {
     error: ""
   };
 
+  setFormError = errorMessage => {
+    this.setState({
+      error: errorMessage
+    });
+  };
+
   getMoviesInArea = () => {
     API.getAllMovies(this.state.searchLocation)
       .then(response => {
         // If data comes back, make sure it's reflected in our state.
         // Otherwise, alert the user that we were unable to find any results.
         if (response.data.length > 0) {
-          this.setState({
-            movieResults: response.data
-          });
-          console.log("movie data", this.state.movieResults);
+          this.setState({ movieResults: response.data });
         } else {
-          // TODO: Handle the error state when no data comes back from the API. Use a new Alert component.
-          this.setState({
-            error: `Unable to find any showtimes for ZIP Code ${
+          this.setFormError(
+            `Unable to find any showtimes for ZIP Code ${
               this.state.searchLocation
             }.`
-          });
+          );
         }
       })
       .catch(err => {
-        console.log('err', err.response);
-        this.setState({
-          error: `Showtimes API failed with error code: ${err.response.status} - ${err.response.data}`
-        });
+        this.setFormError(
+          `Showtimes API failed with error code: ${err.response.status} - ${
+            err.response.data
+          }`
+        );
       });
   };
 
   handleZipCodeInputChange = event => {
-    if (this.state.error) {
-      this.setState({
-        error: ''
-      });
-    }
+    this.setFormError("");
 
     const value = event.target.value;
     const name = event.target.name;
@@ -62,26 +61,26 @@ class Container extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    // Reset state.
-    this.setState({ error: "" });
+    this.setFormError("");
+
     // Validate the form, since the API only accepts ZIP Codes.
     const usZipCodeRegex = /^\d{5}(-\d{4})?$/;
     if (usZipCodeRegex.test(this.state.searchLocation)) {
       this.getMoviesInArea();
     } else {
-      this.setState({
-        searchLocation: "",
-        error: `${this.state.searchLocation} is not a valid US ZIP Code. Please try again.`
-      });
+      this.setState({ searchLocation: "" });
+      this.setFormError(
+        `${
+          this.state.searchLocation
+        } is not a valid US ZIP Code. Please try again.`
+      );
     }
   };
 
   render() {
     return (
       <div>
-        <Alert
-          style={{ opacity: this.state.error ? "1" : "0" }}
-          type="danger">
+        <Alert style={{ opacity: this.state.error ? "1" : "0" }} type="danger">
           {this.state.error}
         </Alert>
         <SearchBar
