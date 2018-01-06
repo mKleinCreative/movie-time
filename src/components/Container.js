@@ -20,26 +20,51 @@ class Container extends Component {
   getMoviesInArea = () => {
     API.getAllMovies(this.state.searchLocation)
       .then(response => {
-        this.setState({
-          movieResults: response.data
-        });
-        console.log("movie data", this.state.movieResults);
+        // If data comes back, make sure it's reflected in our state.
+        // Otherwise, alert the user that we were unable to find any results.
+        if (response.data.length > 0) {
+          this.setState({
+            movieResults: response.data
+          });
+          console.log("movie data", this.state.movieResults);
+        } else {
+          // TODO: Handle the error state when no data comes back from the API. Use a new Alert component.
+          const friendlyError = `Unable to find any showtimes for ZIP Code ${
+            this.state.searchLocation
+          }.`;
+          console.log(friendlyError);
+        }
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        // TODO: Display this error client-side. Omit console.log. Use same Alert component.
+        const friendlyError = `Error occured when calling the Showtimes API: \n\n${err}.`;
+        console.log(friendlyError);
+      });
   };
 
-  handleInputChange = event => {
-    const name = event.target.name;
+  handleZipCodeInputChange = event => {
     const value = event.target.value;
+    const name = event.target.name;
+
     this.setState({
       [name]: value
     });
   };
 
   handleFormSubmit = event => {
-    // when we submit the form, we're going to submit it to google places API and do something about movies.
     event.preventDefault();
-    this.getMoviesInArea();
+    const usZipCodeRegex = /^\d{5}(-\d{4})?$/;
+
+    // Validate the form, since the API only accepts ZIP Codes.
+    if (usZipCodeRegex.test(this.state.searchLocation)) {
+      this.getMoviesInArea();
+    } else {
+      this.setState({ searchLocation: "" });
+      // TODO: Handle the case where the user enters in letters instead of digits.
+      // Use same Alert component.
+      const friendlyError = `${this.state.searchLocation} is not a valid US ZIP Code. Please try again.`;
+      console.log(friendlyError);
+    }
   };
 
   render() {
@@ -48,7 +73,7 @@ class Container extends Component {
         <SearchBar
           search={this.state.searchLocation}
           handleFormSubmit={this.handleFormSubmit}
-          handleInputChange={this.handleInputChange}
+          handleInputChange={this.handleZipCodeInputChange}
         />
         <MovieResultsList results={this.state.movieResults} />
       </div>
