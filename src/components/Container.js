@@ -18,16 +18,6 @@ class Container extends Component {
     }
   };
 
-  componentDidMount() {
-    // get geolocation library
-    this.getMoviesInArea();
-    // use that information to ping fandango api
-
-    // get theaters in current area
-
-    // set current Movie to first movie result
-  }
-
   getMoviesInArea = () => {
     API.getAllMovies()
       .then(response => {
@@ -38,15 +28,6 @@ class Container extends Component {
       })
       .catch(err => console.log(err));
   };
-  //loadNextDog = () => {
-  //   API.getRandomDog()
-  //     .then(res =>
-  //       this.setState({
-  //         image: res.data.message
-  //       })
-  //     )
-  //     .catch(err => console.log(err));
-  // };
 
   handleInputChange = event => {
     const name = event.target.name;
@@ -59,6 +40,7 @@ class Container extends Component {
   handleFormSubmit = event => {
     // when we submit the form, we're going to submit it to google places API and do something about movies.
     event.preventDefault();
+    this.getMoviesInArea();
   };
 
   render() {
