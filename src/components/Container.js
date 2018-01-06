@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import SearchBar from "./SearchBar";
 // import TheaterContainer from './TheaterContainer'
 // import VideoContainer from './VideoContainer'
-// import MovieResultsList from './MovieResultsList'
+import MovieResultsList from './MovieResultsList'
+import API from '../utilities/api'
+
+
 
 class Container extends Component {
   state = {
@@ -17,15 +20,32 @@ class Container extends Component {
     }
   };
 
-  // componentDidMount() {
-  //   // get geolocation library
+  componentDidMount() {
+    // get geolocation library
+    this.getMoviesInArea()
+    // use that information to ping fandango api
 
-  //   // use that information to ping fandango api
+    // get theaters in current area
 
-  //   // get theaters in current area
+    // set current Movie to first movie result
+  }
 
-  //   // set current Movie to first movie result
-  // }
+  getMoviesInArea = () => {
+    API.getAllMovies()
+      .then((response) => {
+        console.log('movie data', response)
+      })
+      .catch(err => console.log(err))
+  }
+  //loadNextDog = () => {
+  //   API.getRandomDog()
+  //     .then(res =>
+  //       this.setState({
+  //         image: res.data.message
+  //       })
+  //     )
+  //     .catch(err => console.log(err));
+  // };
 
   handleInputChange = event => {
     const name = event.target.name;
@@ -48,8 +68,7 @@ class Container extends Component {
           handleFormSubmit={this.handleFormSubmit}
           handleInputChange={this.handleInputChange}
         />
-       { /*
-        <MovieResultsList results={this.state.movieResults} /> */}
+        <MovieResultsList results={this.state.movieResults} />
       </div>
     );
   }
