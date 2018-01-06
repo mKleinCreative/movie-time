@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import SearchBar from "./SearchBar";
 // import TheaterContainer from './TheaterContainer'
 // import VideoContainer from './VideoContainer'
-import MovieResultsList from './MovieResultsList'
-import API from '../utilities/api'
-
-
+import MovieResultsList from "./MovieResultsList";
+import API from "../utilities/api";
 
 class Container extends Component {
   state = {
@@ -22,7 +20,7 @@ class Container extends Component {
 
   componentDidMount() {
     // get geolocation library
-    this.getMoviesInArea()
+    this.getMoviesInArea();
     // use that information to ping fandango api
 
     // get theaters in current area
@@ -32,11 +30,14 @@ class Container extends Component {
 
   getMoviesInArea = () => {
     API.getAllMovies()
-      .then((response) => {
-        console.log('movie data', response)
+      .then(response => {
+        this.setState({
+          movieResults: response.data
+        });
+        console.log("movie data", this.state.movieResults);
       })
-      .catch(err => console.log(err))
-  }
+      .catch(err => console.log(err));
+  };
   //loadNextDog = () => {
   //   API.getRandomDog()
   //     .then(res =>
