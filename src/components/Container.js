@@ -47,6 +47,12 @@ class Container extends Component {
   };
 
   handleZipCodeInputChange = event => {
+    if (this.state.error) {
+      this.setState({
+        error: ''
+      });
+    }
+
     const value = event.target.value;
     const name = event.target.name;
     this.setState({
@@ -74,7 +80,7 @@ class Container extends Component {
     return (
       <div>
         <Alert
-          style={{ display: this.state.error ? "block" : "none" }}
+          style={{ opacity: this.state.error ? "1" : "0" }}
           type="danger">
           {this.state.error}
         </Alert>
