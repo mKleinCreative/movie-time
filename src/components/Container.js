@@ -3,6 +3,7 @@ import SearchBar from "./SearchBar";
 // import TheaterContainer from './TheaterContainer'
 // import VideoContainer from './VideoContainer'
 import MovieResultsList from "./MovieResultsList";
+import Alert from "../components/Alert";
 import API from "../utilities/api";
 
 class Container extends Component {
@@ -14,7 +15,8 @@ class Container extends Component {
       rating: "",
       duration: "",
       description: ""
-    }
+    },
+    error: ""
   };
 
   getMoviesInArea = () => {
@@ -29,23 +31,23 @@ class Container extends Component {
           console.log("movie data", this.state.movieResults);
         } else {
           // TODO: Handle the error state when no data comes back from the API. Use a new Alert component.
-          const friendlyError = `Unable to find any showtimes for ZIP Code ${
-            this.state.searchLocation
-          }.`;
-          console.log(friendlyError);
+          this.setState({
+            error: `Unable to find any showtimes for ZIP Code ${
+              this.state.searchLocation
+            }.`
+          });
         }
       })
       .catch(err => {
-        // TODO: Display this error client-side. Omit console.log. Use same Alert component.
-        const friendlyError = `Error occured when calling the Showtimes API: \n\n${err}.`;
-        console.log(friendlyError);
+        this.setState({
+          error: `Showtimes API encountered an error during execution: ${err}.`
+        });
       });
   };
 
   handleZipCodeInputChange = event => {
     const value = event.target.value;
     const name = event.target.name;
-
     this.setState({
       [name]: value
     });
@@ -53,23 +55,28 @@ class Container extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    const usZipCodeRegex = /^\d{5}(-\d{4})?$/;
-
+    // Reset state.
+    this.setState({ error: "" });
     // Validate the form, since the API only accepts ZIP Codes.
+    const usZipCodeRegex = /^\d{5}(-\d{4})?$/;
     if (usZipCodeRegex.test(this.state.searchLocation)) {
       this.getMoviesInArea();
     } else {
-      this.setState({ searchLocation: "" });
-      // TODO: Handle the case where the user enters in letters instead of digits.
-      // Use same Alert component.
-      const friendlyError = `${this.state.searchLocation} is not a valid US ZIP Code. Please try again.`;
-      console.log(friendlyError);
+      this.setState({
+        searchLocation: "",
+        error: `${this.state.searchLocation} is not a valid US ZIP Code. Please try again.`
+      });
     }
   };
 
   render() {
     return (
       <div>
+        <Alert
+          style={{ display: this.state.error ? "block" : "none" }}
+          type="danger">
+          {this.state.error}
+        </Alert>
         <SearchBar
           search={this.state.searchLocation}
           handleFormSubmit={this.handleFormSubmit}
