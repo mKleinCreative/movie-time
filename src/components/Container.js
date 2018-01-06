@@ -39,8 +39,9 @@ class Container extends Component {
         }
       })
       .catch(err => {
+        console.log('err', err.response);
         this.setState({
-          error: `Showtimes API encountered an error during execution: ${err}.`
+          error: `Showtimes API failed with error code: ${err.response.status} - ${err.response.data}`
         });
       });
   };
