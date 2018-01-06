@@ -9,7 +9,6 @@ class Container extends Component {
   state = {
     searchLocation: "",
     movieResults: [],
-    theaterResults: [],
     currentMovie: {
       title: "",
       rating: "",
@@ -19,7 +18,7 @@ class Container extends Component {
   };
 
   getMoviesInArea = () => {
-    API.getAllMovies()
+    API.getAllMovies(this.state.searchLocation)
       .then(response => {
         this.setState({
           movieResults: response.data

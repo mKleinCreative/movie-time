@@ -7,10 +7,10 @@ const SearchBar = props => (
       <input
         onChange={props.handleInputChange}
         value={props.searchLocation}
-        name="search"
+        name="searchLocation"
         type="text"
         className="form-control"
-        placeholder="Search for a location (example: San Fransisco, CA)"
+        placeholder="Enter zip code to search&hellip;"
         id="search"
       />
       <button onClick={props.handleFormSubmit} className="btn btn-primary">
