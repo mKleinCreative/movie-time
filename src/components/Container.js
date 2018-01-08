@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import SearchBar from "./SearchBar";
-// import TheaterContainer from './TheaterContainer'
 // import VideoContainer from './VideoContainer'
+import TheaterContainer from './TheaterContainer'
 import MovieResultsList from "./MovieResultsList";
 import Alert from "../components/Alert";
 import API from "../utilities/api";
@@ -10,12 +10,6 @@ class Container extends Component {
   state = {
     searchLocation: "",
     movieResults: [],
-    currentMovie: {
-      title: "",
-      rating: "",
-      duration: "",
-      description: ""
-    },
     error: ""
   };
 
@@ -31,6 +25,7 @@ class Container extends Component {
         // If data comes back, make sure it's reflected in our state.
         // Otherwise, alert the user that we were unable to find any results.
         if (response.data.length > 0) {
+          console.log('movies', response.data)
           this.setState({ movieResults: response.data });
         } else {
           this.setFormError(
@@ -59,6 +54,8 @@ class Container extends Component {
     });
   };
 
+  
+
   handleFormSubmit = event => {
     event.preventDefault();
     this.setFormError("");
@@ -66,6 +63,7 @@ class Container extends Component {
     // Validate the form, since the API only accepts ZIP Codes.
     const usZipCodeRegex = /^\d{5}(-\d{4})?$/;
     if (usZipCodeRegex.test(this.state.searchLocation)) {
+      console.log('searchLocation::', this.state.searchLocation);
       this.getMoviesInArea();
     } else {
       this.setState({ searchLocation: "" });
@@ -77,7 +75,19 @@ class Container extends Component {
     }
   };
 
+  handleMovieClick = movie => {
+    console.log('I am happening (╯°□°)╯︵ ┻━┻ ')
+    console.log('movie (╯°□°)╯︵ ┻━┻ ', movie)
+    this.setState({ currentMovie: movie })
+  }
+
   render() {
+    console.log('Container moviestate::', this.state.movieResults);
+
+    const showCurrentMovie = () => {
+     this.state.currentMovie ? <TheaterContainer movie={this.state.currentMovie} />  : "Select a Movie to start."
+    }
+
     return (
       <div>
         <Alert style={{ opacity: this.state.error ? "1" : "0" }} type="danger">
@@ -88,7 +98,8 @@ class Container extends Component {
           handleFormSubmit={this.handleFormSubmit}
           handleInputChange={this.handleZipCodeInputChange}
         />
-        <MovieResultsList results={this.state.movieResults} />
+        <MovieResultsList handleMovieClick={this.handleMovieClick} results={this.state.movieResults} />
+        {this.showCurrentMovie}
       </div>
     );
   }
