@@ -3,9 +3,7 @@ import TheaterDetail from "./TheaterDetail.js"
 console.log('TheaterContainer Exists! (╯°□°)╯︵ ┻━┻ ')
 
 export default class TheaterContainer extends Component {
-  constructor(props) {
-    super(props)
-  }
+
 
   render() {
     return (
@@ -21,7 +19,7 @@ export default class TheaterContainer extends Component {
           </li>
         </ul>
         <ul className="list-group"> 
-          <TheaterDetail />
+          <TheaterDetail theater={this.props.movie.showtimes} />
         </ul>
       </div>
     )
