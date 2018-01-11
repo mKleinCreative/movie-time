@@ -15,11 +15,12 @@ class MovieResultsList extends Component {
       <div>
         <div>
           <ul className="list-group">
-            {this.props.results.map(result => (
+            {this.props.results.map( result => (
               <li className="list-group-item" key={result.tmsId} onClick={this.props.handleMovieClick.bind(this, result)}>
                 <strong>
                   {result.title}
                 </strong>
+                {result.genres}
               </li>
             ))}
           </ul>

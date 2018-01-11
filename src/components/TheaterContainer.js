@@ -13,6 +13,7 @@ export default class TheaterContainer extends Component {
             <strong>
               {this.props.movie.title} <em>{this.props.movie.ratings[0].code}</em>
             </strong>
+            <strong> Directed By: </strong> {this.props.movie.directors}
           </li>
           <li className="list-group-item">
             {this.props.movie.longDescription}
