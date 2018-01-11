@@ -2,29 +2,11 @@ import React, { Component } from "react";
 import TheaterContainer from './TheaterContainer'
 
 class MovieResultsList extends Component { 
-  // constructor(props) {
-  //   super(props)
-  //   this.state = {
-  //     movieResults: [],
-  //     currentMovie: {},
-  //     theaterLocations: []
-  //   }
-  // }
-
   state = {
     movieResults: [],
     currentMovie: {},
     theaterLocations: []
   }
-
-  // componentWillReceiveProps() {
-  //   console.log('it came here');
-  //   this.setState({ movieResults: this.props.results })
-  // }
-
-  // componentDidMount() {
-  //   console.log('this.state, MovieResultsList', this.state);
-  // }
   
   render() {
     console.log('these are the listed movies:::', this.props.results);
@@ -41,9 +23,6 @@ class MovieResultsList extends Component {
               </li>
             ))}
           </ul>
-        </div>
-        <div>
-          {/*<TheaterContainer results={this.state.movieResults} />*/}
         </div>
       </div>
     )

@@ -1,15 +1,30 @@
-import React from "react";
+import React, { Component } from "react";
+import TheaterDetail from "./TheaterDetail.js"
+console.log('TheaterContainer Exists! (╯°□°)╯︵ ┻━┻ ')
 
-const TheaterContainer = props => (
-  <ul className="list-group">
-     {props.results.map(result => (
-       <li className="list-group-item" key={result.tmsId}>
-         <strong>
-           {result.title} <em>{result.ratings[0].code}</em>
-         </strong>
-       </li>
-     ))}
-  </ul>
-);
+export default class TheaterContainer extends Component {
+  constructor(props) {
+    super(props)
+  }
 
-export default TheaterContainer;
+  render() {
+    return (
+      <div>
+        <ul className="list-group">
+          <li className="list-group-item" key={this.props.movie.rootId}>
+            <strong>
+              {this.props.movie.title} <em>{this.props.movie.ratings[0].code}</em>
+            </strong>
+          </li>
+          <li className="list-group-item">
+            {this.props.movie.longDescription}
+          </li>
+        </ul>
+        <ul className="list-group"> 
+          <TheaterDetail />
+        </ul>
+      </div>
+    )
+  }
+}
+

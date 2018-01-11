@@ -10,7 +10,8 @@ class Container extends Component {
   state = {
     searchLocation: "",
     movieResults: [],
-    error: ""
+    error: "",
+    currentMovie: null
   };
 
   setFormError = errorMessage => {
@@ -54,8 +55,6 @@ class Container extends Component {
     });
   };
 
-  
-
   handleFormSubmit = event => {
     event.preventDefault();
     this.setFormError("");
@@ -76,17 +75,22 @@ class Container extends Component {
   };
 
   handleMovieClick = movie => {
-    console.log('I am happening (╯°□°)╯︵ ┻━┻ ')
-    console.log('movie (╯°□°)╯︵ ┻━┻ ', movie)
     this.setState({ currentMovie: movie })
+  }
+
+  showCurrentMovie = () => {
+    const { currentMovie } = this.state
+    console.log('currentMovie in showCurrentMovie (╯°□°)╯︵ ┻━┻ ', currentMovie)
+    if ( currentMovie ) { 
+      return <TheaterContainer movie={ currentMovie } /> 
+    } else {
+      return ( "Choose your zipcode and select a Movie to start!" )
+    }
   }
 
   render() {
     console.log('Container moviestate::', this.state.movieResults);
-
-    const showCurrentMovie = () => {
-     this.state.currentMovie ? <TheaterContainer movie={this.state.currentMovie} />  : "Select a Movie to start."
-    }
+    
 
     return (
       <div>
@@ -99,7 +103,9 @@ class Container extends Component {
           handleInputChange={this.handleZipCodeInputChange}
         />
         <MovieResultsList handleMovieClick={this.handleMovieClick} results={this.state.movieResults} />
-        {this.showCurrentMovie}
+        <div>
+          { this.showCurrentMovie() }
+        </div>
       </div>
     );
   }
