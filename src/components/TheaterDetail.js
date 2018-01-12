@@ -11,7 +11,7 @@ class TheaterDetail extends Component {
               <strong>
                 {result.theatre.name}
               </strong>
-              <a href={result.ticketURI}> { result.dateTime } </a>
+              <a href={result.ticketURI}> { result.dateTime ? result.dateTime : "No Current Showings" } </a>
             </li>
           ))
         }

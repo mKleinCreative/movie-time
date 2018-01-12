@@ -80,7 +80,6 @@ class Container extends Component {
 
   showCurrentMovie = () => {
     const { currentMovie } = this.state
-    console.log('currentMovie in showCurrentMovie (╯°□°)╯︵ ┻━┻ ', currentMovie)
     if ( currentMovie ) { 
       return (
         <div>

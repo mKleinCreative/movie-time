@@ -1,6 +1,5 @@
 import _ from 'lodash'
 import React, { Component } from 'react';
-import SearchBar from './SearchBar';
 import YTSearch from 'youtube-api-search';
 import VideoPlayer from './VideoPlayer'
 import VideoList from './VideoList'
@@ -14,12 +13,12 @@ export default class VideoContainer extends Component {
 
     this.state = {
       videos: [],
+      selectedVideo: null
     };
-
   }
 
   componentWillMount() {
-    this.videoSearch(this.props.term);
+    this.setState({ selectedVideo: this.videoSearch(this.props.term)});
   }
 
   videoSearch(term) {
@@ -36,7 +35,6 @@ export default class VideoContainer extends Component {
 
     return (
       <div>
-        <SearchBar onSearchTermChange={videoSearch} />
         <VideoPlayer video={this.state.selectedVideo} />
         <VideoList
           onVideoSelect={selectedVideo => this.setState({ selectedVideo })}
