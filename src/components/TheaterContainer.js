@@ -11,9 +11,10 @@ export default class TheaterContainer extends Component {
         <ul className="list-group">
           <li className="list-group-item" key={this.props.movie.rootId}>
             <strong>
-              {this.props.movie.title} <em>{this.props.movie.ratings[0].code}</em>
+              {this.props.movie.title} 
             </strong>
-            <strong> Directed By: </strong> {this.props.movie.directors}
+            <br />
+            <strong> Directed By: </strong>{this.props.movie.directors.join(' ')}
           </li>
           <li className="list-group-item">
             {this.props.movie.longDescription}
