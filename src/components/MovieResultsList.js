@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 
-class MovieResultsList extends Component { 
+class MovieResultsList extends Component {
   state = {
     movieResults: [],
     currentMovie: {},
     theaterLocations: []
   }
-  
+
   render() {
     console.log('these are the listed movies:::', this.props.results);
 
@@ -17,8 +17,8 @@ class MovieResultsList extends Component {
             {this.props.results.map( result => (
               <li className="list-group-item" key={result.tmsId} onClick={this.props.handleMovieClick.bind(this, result)}>
                 <strong>
-                  {result.title} <em> {result.ratings[0].code} </em>
-                </strong> 
+                  {result.title} <em> {result.ratings ? result.ratings[0].code : 'No Rating'} </em>
+                </strong>
                 <br/>
                 {result.genres.join(', ')}
               </li>
