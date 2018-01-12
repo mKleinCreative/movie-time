@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SearchBar from "./SearchBar";
-// import VideoContainer from './VideoContainer'
+import VideoContainer from './VideoContainer'
 import TheaterContainer from './TheaterContainer'
 import MovieResultsList from "./MovieResultsList";
 import Alert from "../components/Alert";
@@ -82,7 +82,12 @@ class Container extends Component {
     const { currentMovie } = this.state
     console.log('currentMovie in showCurrentMovie (╯°□°)╯︵ ┻━┻ ', currentMovie)
     if ( currentMovie ) { 
-      return <TheaterContainer movie={ currentMovie } /> 
+      return (
+        <div>
+          <VideoContainer term={ `${currentMovie.title} Trailer`}/>
+          <TheaterContainer movie={ currentMovie } /> 
+        </div>
+      )
     } else {
       return ( "Choose your zipcode and select a Movie to start!" )
     }

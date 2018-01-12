@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import TheaterContainer from './TheaterContainer'
 
 class MovieResultsList extends Component { 
   state = {
