@@ -17,8 +17,8 @@ export default class VideoContainer extends Component {
     };
   }
 
-  componentWillMount() {
-    this.setState({ selectedVideo: this.videoSearch(this.props.term)});
+  componentDidMount() {
+    this.videoSearch(this.props.term);
   }
 
   videoSearch(term) {
