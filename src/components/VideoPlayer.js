@@ -9,14 +9,10 @@ const VideoPlayer = ({ video }) => {
   const url = `https://www.youtube.com/embed/${videoId}`
   console.log('video URL', url)
   return (
-    <div className="video-player col-md-8">
-      <div className="embed-responsive embed-responsive-16by9">
-        <iframe className="embed-responsive-items" src={url} title="Trailer Player"></iframe>
-      </div>
-      <div className='details'>
-        <div>{video.snippet.title}</div>
-        <div>{video.snippet.description}</div>
-      </div>
+    <div className="embed-responsive embed-responsive-16by9">
+      <iframe className="embed-responsive-items" src={url} title="Trailer Player"></iframe>
+      <div>{video.snippet.title}</div>
+      <div>{video.snippet.description}</div>
     </div>
   )
 };
