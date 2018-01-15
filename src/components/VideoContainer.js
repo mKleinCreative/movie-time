@@ -17,8 +17,12 @@ export default class VideoContainer extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.videoSearch(this.props.term);
+  }
+
+  componentWillUpdate() {
+    this.videoSearch(this.props.term)
   }
 
   videoSearch(term) {
