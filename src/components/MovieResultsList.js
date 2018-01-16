@@ -20,7 +20,7 @@ class MovieResultsList extends Component {
                   {result.title} <em> {result.ratings ? result.ratings[0].code : 'No Rating'} </em>
                 </strong>
                 <br/>
-                {result.genres.join(', ')}
+                {result.genres ? result.genres.join(', ') : 'no listed genre'}
               </li>
             ))}
           </ul>

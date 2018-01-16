@@ -75,6 +75,9 @@ class Container extends Component {
   };
 
   handleMovieClick = movie => {
+    // move youtube search logic into here,
+    // run fetch call, then set state.
+
     this.setState({ currentMovie: movie })
   }
 
